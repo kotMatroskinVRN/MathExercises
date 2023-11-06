@@ -2,11 +2,7 @@ package org.example.mathoperation;
 
 import org.example.task.Task;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-
-public class Minus implements MathOperation{
+public class Minus implements MathOperationTask {
 
     private final int limit;
 
@@ -28,7 +24,28 @@ public class Minus implements MathOperation{
     }
 
     @Override
+    public Task getParticularTask(int a, int b) throws ArithmeticException {
+        if(a>limit || b>limit || a<b ) throw new ArithmeticException();
+        return new Task(String.format( FORMAT, a , "-" , b ));
+    }
+
+    @Override
     public int getNumerOfUniq() {
-        return 0;
+        int countMinus = 0;
+
+        for(int i=0;i<=limit;i++)
+            for(int j = 0; j <= limit; j++)
+                if(i - j >= 0) countMinus++;
+        return countMinus;
+    }
+
+    @Override
+    public int getLimit() {
+        return limit;
+    }
+
+    @Override
+    public String getHTMLtitle() {
+        return "Вычитание Двухзначных чисел";
     }
 }

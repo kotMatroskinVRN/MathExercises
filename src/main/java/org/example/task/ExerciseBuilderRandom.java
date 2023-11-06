@@ -1,23 +1,23 @@
 package org.example.task;
 
-import org.example.mathoperation.MathOperation;
+import org.example.mathoperation.MathOperationTask;
 
 import java.util.stream.IntStream;
 
-public class TaskBuilderRandom implements  TaskBuilder {
+public class ExerciseBuilderRandom implements ExerciseBuilder {
     private final Exercise exercise;
     private final int limit;
 
-    private final MathOperation mathOperation ;
+    private final MathOperationTask mathOperation ;
 
-    public TaskBuilderRandom(MathOperation mathOperation , int tasksLimit) {
+    public ExerciseBuilderRandom(MathOperationTask mathOperation , int tasksLimit) {
         this.mathOperation = mathOperation;
         exercise = new Exercise();
         limit = tasksLimit;
     }
 
     @Override
-    public void makeTask(){
+    public void makeExercise(){
         IntStream.range(0, limit).forEach(i -> makeSingleTask());
     }
 
@@ -33,7 +33,7 @@ public class TaskBuilderRandom implements  TaskBuilder {
         Task task , inTest;
         int numberOfUniq = mathOperation.getNumerOfUniq();
 
-        while(true){
+        while(exercise.getTasks().size()<limit){
             task = mathOperation.getRandomTask();
             inTest = exercise.findTaskByName(task);
 
@@ -47,7 +47,7 @@ public class TaskBuilderRandom implements  TaskBuilder {
                 System.out.println( "elseif " + average);
                 inTest.addWeight();
                 exercise.addTask(inTest);
-                break;
+//                break;
             }
             //System.out.println(task);
             //System.out.println(inTest);
